@@ -23,27 +23,7 @@
 		<song-list :list='recommend' title='推荐歌单'></song-list>
 		
 		<!-- 歌单分类块 -->
-		<view class="song-list">
-		    <view class="switch-line flex-box">
-		        <view class="flex-box">
-		            <view class="switch-item" :class="{on : newType == 1}" @click="switchTab(1)">新碟</view>|
-		            <view class="switch-item" :class="{on : newType == 2}" @click="switchTab(2)">新歌</view>
-		        </view>
-		        <template v-if="newType == 1">
-		            <view class="more">更多新碟</view>
-		        </template>
-		        <template v-if="newType == 2">
-		            <view class="more">新歌推荐</view>
-		        </template>
-		    </view>
-		    <scroll-view class="scroll-view" scroll-x>
-		        <view class="item" v-for="(item, index) in latestAlbum" :key="index">
-		            <image class="img" :src="item.picUrl"></image>
-		            <view class="desc ellipsis">{{item.name}}</view>
-		            <view class="desc ellipsis c9">{{item.artist.name}}</view>
-		        </view>
-		    </scroll-view>
-		</view>
+		<new-album :latestAlbum='latestAlbum' :switchTab='switchTab'></new-album>
 
 	</div>
 	
@@ -52,8 +32,12 @@
 <script>
 	import {banner,personalized,topAlbum,topSong} from '@/api/home.js'
 	import songList from '@/components/songList/songList.vue'
+	import newAlbum from '@/components/songList/newAlbum.vue'
 	export default {
-		components:{songList},
+		components:{
+			songList,
+			newAlbum
+			},
 		data() {
 			return {
 				swiper: [],
@@ -67,7 +51,7 @@
 				],
 				recommend:[],
 				latestAlbum:[],
-				newType:1
+				
 			}
 		},
 		onLoad() {
@@ -88,9 +72,11 @@
 			
 		},
 		methods: {
+			
+			
 			// 切换新碟新歌
 			switchTab (type) {
-			    this.newType = type
+			    console.log(type);
 			    // 根据类型加载不同数据
 			    if (type == 1) {
 			        // 新碟数据
