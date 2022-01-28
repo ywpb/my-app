@@ -18,6 +18,7 @@ const request = (obj) => {
 	obj.data = obj.data || {};
 	obj.header = obj.header || 'application/json';
 	obj.loading = obj.loading === false ? false : true;
+	
 	let token = store.getters.token || ''; // 登录获得的 token
         let loadingStatus = true;
 	setTimeout(()=>{
@@ -38,6 +39,7 @@ const request = (obj) => {
 			// 	'Content-Type': obj.header
 			// },
 			success: res => { // 服务器成功返回的回调函数
+			
 				if (res.statusCode === 200) {
 					let result = res.data;
 					// if (result.code === 20000) { // 跟后端约定的code
@@ -65,6 +67,7 @@ const request = (obj) => {
 				} else { // 返回值非 200，强制显示提示信息
 					showToast('[' + res.statusCode + '] 系统处理失败');
 					reject('[' + res.statusCode + '] 系统处理失败');
+					console.log('object');
 				}
 			},
 			fail: (err) => { // 接口调用失败的回调函数

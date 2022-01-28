@@ -7,3 +7,11 @@ export function banner(){
 export function personalized(){
 	return http({url:'/personalized',method:'get'})
 }
+
+export function topAlbum(data){
+	return http({url:'/album/new',method:'get',data})
+}
+
+export function topSong(data){
+	return http({url:'/top/song',method:'get',data})
+}
